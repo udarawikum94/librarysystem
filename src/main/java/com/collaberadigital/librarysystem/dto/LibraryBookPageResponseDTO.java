@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * Data Transfer Object (DTO) representing a book entity.
- * This class extends the {@link LibraryBookRequestDTO} class.
  */
 @Data
 @AllArgsConstructor

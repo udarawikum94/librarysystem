@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/book")
 public class LibraryBookController {
 
+    // Tag value used for LibraryBookController in Swagger API operations
+    private static final String TAG_NAME = "Library Book Management";
+
     // Service instance for handling library book operations
     private final LibraryBookService libraryBookService;
 
@@ -43,7 +46,7 @@ public class LibraryBookController {
      * @param bookDTO the book details to register.
      * @return the registered book details.
      */
-    @Operation(tags = "Library Book Management", description = "Register a new book to the library")
+    @Operation(tags = TAG_NAME, description = "Register a new book to the library")
     @CommonApiResponses
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Library book registered successfully")
@@ -69,13 +72,13 @@ public class LibraryBookController {
      * @param bookId the ID of the book.
      * @return the book details.
      */
-    @Operation(tags = "Library Book Management", description = "Fetch book details by ID")
+    @Operation(tags = TAG_NAME, description = "Fetch book details by ID")
     @CommonApiResponses
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "No data available for given book ID")
     })
     @GetMapping(value = "/{bookId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LibraryBookDTO> getPostById(@PathVariable(name = "bookId") Long bookId) {
+    public ResponseEntity<LibraryBookDTO> getPostById(@PathVariable(name = "bookId") final Long bookId) {
         log.info("Received request to fetch book details for ID: {}", bookId);
 
         final LibraryBookDTO response = libraryBookService.getBookById(bookId);
@@ -95,14 +98,14 @@ public class LibraryBookController {
      * @param sortDir  the direction of sorting (asc/desc).
      * @return a paginated list of books.
      */
-    @Operation(tags = "Library Book Management", description = "Fetch all books")
+    @Operation(tags = TAG_NAME, description = "Fetch all books")
     @CommonApiResponses
     @GetMapping(value = "/getAllBooks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LibraryBookPageResponseDTO> getAllBooks(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NO) final int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE) final int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY) final String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION) final String sortDir) {
+            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEF_SORT_DIR) final String sortDir) {
 
         log.info("Received request to fetch all books");
 
@@ -124,14 +127,14 @@ public class LibraryBookController {
      * @param sortDir  the direction of sorting (asc/desc).
      * @return a paginated list of available books for borrowing.
      */
-    @Operation(tags = "Library Book Management", description = "Fetch all available books to borrow")
+    @Operation(tags = TAG_NAME, description = "Fetch all available books to borrow")
     @CommonApiResponses
     @GetMapping(value = "/getAvailable", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LibraryBookPageResponseDTO> getAllAvailableToBorrow(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NO) final int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE) final int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY) final String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION) final String sortDir) {
+            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEF_SORT_DIR) final String sortDir) {
 
         log.info("Received request to fetch all available books to borrow");
 

@@ -11,7 +11,7 @@ public final class AppConstant {
     public static final String DEFAULT_PAGE_NO = "0";
     public static final String DEFAULT_PAGE_SIZE = "10";
     public static final String DEFAULT_SORT_BY = "id";
-    public static final String DEFAULT_SORT_DIRECTION = "asc";
+    public static final String DEF_SORT_DIR = "asc";
 
     /**
      * Entity names used for exception handling.

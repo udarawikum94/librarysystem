@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/borrower")
 public class BorrowerController {
 
+    // Tag value used for BorrowerController in Swagger API operations
+    private static final String TAG_NAME = "Borrower Management";
+
     // Service instance for handling borrower operations
     private final BorrowerService borrowerService;
 
@@ -35,13 +38,14 @@ public class BorrowerController {
         this.borrowerService = borrowerService;
     }
 
+
     /**
      * Registers a new borrower in the library.
      *
      * @param borrowerDto the borrower details to register.
      * @return the registered borrower details.
      */
-    @Operation(tags = "Borrower Management", description = "Register a new borrower")
+    @Operation(tags = TAG_NAME, description = "Register a new borrower")
     @CommonApiResponses
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Borrower registered successfully")
@@ -66,7 +70,7 @@ public class BorrowerController {
      * @param borrowerId the ID of the borrower.
      * @return the borrower details.
      */
-    @Operation(tags = "Borrower Management", description = "Get borrower details by ID")
+    @Operation(tags = TAG_NAME, description = "Get borrower details by ID")
     @CommonApiResponses
     @GetMapping(value = "/{borrowerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BorrowerDTO> getBorrowerById(@PathVariable(name = "borrowerId") final Long borrowerId) {
@@ -90,14 +94,14 @@ public class BorrowerController {
      * @param sortDir  the direction of sorting (asc/desc).
      * @return a paginated list of borrowers.
      */
-    @Operation(tags = "Borrower Management", description = "Get all borrowers")
+    @Operation(tags = TAG_NAME, description = "Get all borrowers")
     @CommonApiResponses
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BorrowerPageResponseDTO> getAllBorrower(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NO) final int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE) final int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY) final String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION) final String sortDir) {
+            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEF_SORT_DIR) final String sortDir) {
 
         log.info("Received request to fetch all borrowers");
 

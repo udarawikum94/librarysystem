@@ -125,7 +125,7 @@ public class BorrowingServiceImpl implements BorrowingService {
      * @return the borrowing information.
      */
     @Override
-    public BorrowingInfoDTO getBorrowingInfoByBorrowerAndBook(long borrowerId, long bookId) {
+    public BorrowingInfoDTO getBorrowingInfoByBorrowerAndBook(final long borrowerId, final long bookId) {
         LOGGER.info("Getting borrowing info for borrower ID: {} and book ID: {}", borrowerId, bookId);
 
         final Borrowing borrowing = borrowingRepository.findTopByBorrowerIdAndBookId(borrowerId, bookId)

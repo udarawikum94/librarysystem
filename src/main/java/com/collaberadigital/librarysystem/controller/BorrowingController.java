@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/borrowing")
 public class BorrowingController {
 
+    // Tag value used for BorrowingController in Swagger API operations
+    private static final String TAG_NAME = "Borrowing Management";
+
     // Service instance for handling borrowing operations
     private final BorrowingService borrowingService;
 
@@ -41,15 +44,15 @@ public class BorrowingController {
      * @param bookId the ID of the book.
      * @return the borrowing information.
      */
-    @Operation(tags = "Borrowing Management", description = "Get borrowing info by borrower ID and book ID")
+    @Operation(tags = TAG_NAME, description = "Get borrowing info by borrower ID and book ID")
     @CommonApiResponses
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Reference info not found")
     })
     @GetMapping(value = "/getBorrowingInfo/{borrowerId}/{bookId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BorrowingInfoDTO> getBorrowingInfoByBorrowerAndBook(
-            @PathVariable(name = "borrowerId") Long borrowerId,
-            @PathVariable(name = "bookId") Long bookId) {
+            @PathVariable(name = "borrowerId") final Long borrowerId,
+            @PathVariable(name = "bookId") final Long bookId) {
 
         log.info("Received request to fetch borrowing info for borrowerId: {} and bookId: {}", borrowerId, bookId);
 
@@ -72,7 +75,7 @@ public class BorrowingController {
      * @param sortDir the direction of sorting (asc/desc).
      * @return a paginated list of borrowed books.
      */
-    @Operation(tags = "Borrowing Management", description = "Get all books borrowed by borrower")
+    @Operation(tags = TAG_NAME, description = "Get all books borrowed by borrower")
     @CommonApiResponses
     @GetMapping(value = "/{borrowerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BorrowingPageResponseDTO> getAllBooksByBorrower(
@@ -101,7 +104,7 @@ public class BorrowingController {
      * @param borrowerId the ID of the borrower.
      * @return the borrowing information.
      */
-    @Operation(tags = "Borrowing Management", description = "Borrow a book")
+    @Operation(tags = TAG_NAME, description = "Borrow a book")
     @CommonApiResponses
     @PostMapping(value = "/{bookId}/borrow",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,7 +128,7 @@ public class BorrowingController {
      * @param borrowingId the ID of the borrowing record.
      * @return the borrowing information.
      */
-    @Operation(tags = "Borrowing Management", description = "Return a borrowed book")
+    @Operation(tags = TAG_NAME, description = "Return a borrowed book")
     @CommonApiResponses
     @PutMapping(value = "/{borrowingId}/return",
             produces = MediaType.APPLICATION_JSON_VALUE)
